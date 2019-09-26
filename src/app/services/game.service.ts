@@ -18,12 +18,26 @@ export class GameService {
   }
 
   startGameLoop() {
+
+    this.drawGrid();
     const spriteX = 0;
     const spriteY = 0;
     const spriteWidth = 512;
     const spriteHeight = 512;
     const x = 0;
     const y = 0;
-    this.context.drawImage(this.starshipImage, spriteX, spriteY, spriteWidth, spriteHeight, x, y, 100, 100);
+    this.context.drawImage(this.starshipImage, spriteX, spriteY, spriteWidth, spriteHeight, x, y, 64, 64);
+
+  }
+
+  private drawGrid() {
+    const cellWidth = 10;
+    const fieldWidth = 54;
+    const fieldHeight = 96;
+    for (let iy = 0; iy < fieldHeight; iy++) {
+      for (let ix = 0; ix < fieldWidth; ix++) {
+        this.context.strokeRect(ix * cellWidth, iy * cellWidth, cellWidth, cellWidth);
+      }
+    }
   }
 }

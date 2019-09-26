@@ -8,7 +8,7 @@ export class AppService {
 
   constructor(private gameService: GameService ) {}
 
-  createPlayGround( canvasElement): void {
+  createPlayGround( canvasElement: HTMLCanvasElement): void {
     this.gameService.loadAssets(canvasElement).then( (image) => {
       setTimeout( () => {
         this.isImageLoaded.emit();

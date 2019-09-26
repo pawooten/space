@@ -2,6 +2,8 @@ import { Component, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
 import { AppService } from './services/app.service';
 import { GameService } from './services/game.service';
 
+import { playField } from './config';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -12,6 +14,11 @@ export class AppComponent implements AfterViewInit {
   @ViewChild('canvas') public canvas: ElementRef;
   subscription: any;
 
+  private _displayPlayField = false;
+  get displayPlayField(): boolean {
+    return this._displayPlayField;
+  }
+
   constructor( private appService: AppService, private gameService: GameService ) {
   }
 
@@ -21,17 +28,17 @@ export class AppComponent implements AfterViewInit {
     this.subscription = this.appService.getImageLoadEmitter()
     .subscribe(() => {
       // this.showLoader = false;
-      this.gameService.startGameLoop();
+      // this.gameService.startGameLoop();
+      this._displayPlayField = true;
+      this.onResize(window);
     });
   }
 
-  onResize(event: any) {
+  onResize(eventTarget: any) {
     const dpi = window.devicePixelRatio;
-    const width = event.target.innerWidth * dpi;
-    const height = event.target.innerHeight * dpi;
     const canvasElement = this.canvas.nativeElement;
-    canvasElement.setAttribute('width', width);
-    canvasElement.setAttribute('height', height);
+    canvasElement.setAttribute('width', dpi * playField.width);
+    canvasElement.setAttribute('height', dpi * playField.height);
     this.gameService.startGameLoop();
   }
 }
