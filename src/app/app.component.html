@@ -1,3 +1,6 @@
-<div (window:resize)="onResize($event.target)">
-    <canvas [ngClass]="{'hidden': !displayPlayField}" #canvas></canvas>
+<div id="outerDiv" (window:resize)="onResize($event.target)">
+    <canvas [ngClass]="{'hidden': !isLoaded}" #canvas></canvas>
+    <div *ngIf='!isLoaded' id="loadingDiv">
+        <span>Loading...!</span>
+    </div>
 </div>

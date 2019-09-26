@@ -14,9 +14,9 @@ export class AppComponent implements AfterViewInit {
   @ViewChild('canvas') public canvas: ElementRef;
   subscription: any;
 
-  private _displayPlayField = false;
-  get displayPlayField(): boolean {
-    return this._displayPlayField;
+  private _isLoaded = false;
+  get isLoaded(): boolean {
+    return this._isLoaded;
   }
 
   constructor( private appService: AppService, private gameService: GameService ) {
@@ -27,9 +27,8 @@ export class AppComponent implements AfterViewInit {
     this.appService.createPlayGround(canvasElement);
     this.subscription = this.appService.getImageLoadEmitter()
     .subscribe(() => {
-      // this.showLoader = false;
       // this.gameService.startGameLoop();
-      this._displayPlayField = true;
+      this._isLoaded = true;
       this.onResize(window);
     });
   }
