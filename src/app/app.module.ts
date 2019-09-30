@@ -4,10 +4,11 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
+import { ScoreboardComponent } from './components/scoreboard/scoreboard.component';
 
 import { AppService } from './services/app.service';
 import { GameService } from './services/game.service';
-import { ScoreboardComponent } from './components/scoreboard/scoreboard.component';
+import { ScoreService } from './services/score.service';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,7 @@ import { ScoreboardComponent } from './components/scoreboard/scoreboard.componen
     FormsModule,
     HttpModule
   ],
-  providers: [ AppService, GameService ],
+  providers: [ AppService, GameService, ScoreService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

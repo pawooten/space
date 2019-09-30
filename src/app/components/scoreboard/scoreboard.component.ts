@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ScoreService } from '../../services/score.service';
 
 @Component({
   selector: 'app-scoreboard',
@@ -7,7 +8,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ScoreboardComponent implements OnInit {
 
-  constructor() { }
+  get highScore(): number {
+    return this.scoreService.highScore;
+  }
+
+  get currentScore(): number {
+    return this.scoreService.currentScore;
+  }
+
+  get currentStage(): number {
+    return this.scoreService.currentStage;
+  }
+  constructor(private scoreService: ScoreService) {
+  }
 
   ngOnInit() {
   }
