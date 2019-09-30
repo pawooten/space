@@ -14,11 +14,6 @@
   border-left:2px solid ghostwhite;
   border-right:2px solid ghostwhite;
 }
-#scoreboardDiv {
-  background-color: ghostwhite;
-  opacity: 0.3;
-  border-right:2px solid ghostwhite;
-}
 #loadingDiv {
   position: absolute;
   top:50%;
@@ -31,7 +26,7 @@
 canvas {
   display:grid;
   border-top: 4px solid ghostwhite;
-  border-bottom: 4px solid ghostwhite;
+  border-bottom: 5px solid ghostwhite;
 }
 span {
   display:inline-block;

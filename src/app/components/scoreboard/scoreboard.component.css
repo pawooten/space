@@ -1,0 +1,14 @@
+div {
+  background-color: ghostwhite;
+  opacity: 0.3;
+  border-right:2px solid ghostwhite;
+  height:100%;
+}
+h3 {
+  margin:0px;
+  padding:10px;
+  color: dimgray;
+}
+h3:first-of-type {
+  padding-top:100px;
+}

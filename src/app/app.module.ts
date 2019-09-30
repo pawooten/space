@@ -7,10 +7,12 @@ import { AppComponent } from './app.component';
 
 import { AppService } from './services/app.service';
 import { GameService } from './services/game.service';
+import { ScoreboardComponent } from './components/scoreboard/scoreboard.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ScoreboardComponent
   ],
   imports: [
     BrowserModule,
