@@ -1,6 +1,11 @@
 <div id="outerDiv" (window:resize)="onResize($event.target)">
+  <div id="canvasWrapperDiv">
     <canvas [ngClass]="{'hidden': !isLoaded}" #canvas></canvas>
     <div *ngIf='!isLoaded' id="loadingDiv">
         <span>Loading...!</span>
     </div>
+  </div>
+  <div id="scoreboardDiv" class="sidePanel">
+      &nbsp;
+  </div>
 </div>

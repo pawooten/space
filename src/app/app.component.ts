@@ -27,7 +27,6 @@ export class AppComponent implements AfterViewInit {
     this.appService.createPlayGround(canvasElement);
     this.subscription = this.appService.getImageLoadEmitter()
     .subscribe(() => {
-      // this.gameService.startGameLoop();
       this._isLoaded = true;
       this.onResize(window);
     });

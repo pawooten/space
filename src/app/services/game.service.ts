@@ -34,6 +34,7 @@ export class GameService {
     const cellWidth = 10;
     const fieldWidth = 54;
     const fieldHeight = 96;
+    this.context.strokeStyle = 'ghostwhite';
     for (let iy = 0; iy < fieldHeight; iy++) {
       for (let ix = 0; ix < fieldWidth; ix++) {
         this.context.strokeRect(ix * cellWidth, iy * cellWidth, cellWidth, cellWidth);
