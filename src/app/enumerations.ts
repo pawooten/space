@@ -1,4 +1,4 @@
 export enum KeyboardEventType {
-  KeyDown,
-  KeyUp
+  KeyDown = 'KeyDown',
+  KeyUp = 'KeyUp'
 };
