@@ -1,6 +1,9 @@
 import { Injectable, EventEmitter } from '@angular/core';
 import { GameService } from './game.service';
 
+import { Key } from 'ts-keycode-enum';
+import { KeyboardEventType } from '../enumerations';
+
 @Injectable()
 export class AppService {
 
@@ -18,5 +21,33 @@ export class AppService {
 
   getImageLoadEmitter() {
     return this.isImageLoaded;
+  }
+
+  onKeyboardEvent( event: KeyboardEvent, type: KeyboardEventType): void {
+    switch (type) {
+      case KeyboardEventType.KeyDown:
+        switch (event.keyCode) {
+          case Key.LeftArrow:
+            console.log('left');
+            break;
+          case Key.UpArrow:
+            console.log('up');
+            break;
+          case Key.RightArrow:
+            console.log('right');
+            break;
+          case Key.DownArrow:
+            console.log('down');
+            break;
+          case Key.Space:
+            console.log('space bar');
+        }
+        break;
+      case KeyboardEventType.KeyUp:
+        console.log('keyup');
+        break;
+      default:
+        break;
+    }
   }
 }

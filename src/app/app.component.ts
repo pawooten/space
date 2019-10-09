@@ -1,8 +1,9 @@
-import { Component, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
+import { Component, AfterViewInit, ElementRef, ViewChild, HostListener } from '@angular/core';
 import { AppService } from './services/app.service';
 import { GameService } from './services/game.service';
 
 import { playFieldConfig } from './config';
+import { KeyboardEventType } from './enumerations';
 
 @Component({
   selector: 'app-root',
@@ -38,5 +39,11 @@ export class AppComponent implements AfterViewInit {
     canvasElement.setAttribute('width', dpi * playFieldConfig.width);
     canvasElement.setAttribute('height', dpi * playFieldConfig.height);
     this.gameService.startGameLoop();
+  }
+  @HostListener('document:keydown', ['$event']) onKeydownHandler(event: KeyboardEvent) {
+    this.appService.onKeyboardEvent(event, KeyboardEventType.KeyDown);
+  }
+  @HostListener('document:keyup', ['$event']) onKeyupHandler(event: KeyboardEvent) {
+    this.appService.onKeyboardEvent(event, KeyboardEventType.KeyUp);
   }
 }
