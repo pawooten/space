@@ -1,43 +1,42 @@
 import { Injectable, Inject } from '@angular/core';
 
+import { Starship } from '../classes/starship';
+import { playFieldConfig, starshipConfig } from '../config';
+
 @Injectable()
 export class GameService {
 
-  starshipImage: HTMLImageElement = null;
+  private starship: Starship;
+
   context: CanvasRenderingContext2D;
 
   loadAssets(canvasElement: HTMLCanvasElement): Promise<void> {
     this.context = canvasElement.getContext('2d');
     return new Promise((resolve, reject) => {
-      this.starshipImage = new Image();
-      this.starshipImage.src = '../../assets/svg/starship.svg';
-      this.starshipImage.width = 512;
-      this.starshipImage.height = 512;
-      this.starshipImage.onload = () => { resolve(); };
+      const starshipImage = new Image();
+      starshipImage.src = starshipConfig.imageSource;
+      starshipImage.width = starshipConfig.imageWidth;
+      starshipImage.height = starshipConfig.imageHeight;
+      starshipImage.onload = () => {
+        // Center the starship in the middle of the play field
+        const x = (playFieldConfig.width - starshipConfig.width) / 2;
+        const y = playFieldConfig.height - starshipConfig.height;
+        this.starship = new Starship( x, y, starshipImage);
+        resolve(); };
     });
   }
 
   startGameLoop() {
-
     this.drawGrid();
-    const spriteX = 0;
-    const spriteY = 0;
-    const spriteWidth = 512;
-    const spriteHeight = 512;
-    const x = 0;
-    const y = 0;
-    this.context.drawImage(this.starshipImage, spriteX, spriteY, spriteWidth, spriteHeight, x, y, 64, 64);
-
+    this.starship.draw(this.context);
   }
 
   private drawGrid() {
-    const cellWidth = 10;
-    const fieldWidth = 54;
-    const fieldHeight = 96;
     this.context.strokeStyle = 'ghostwhite';
-    for (let iy = 0; iy < fieldHeight; iy++) {
-      for (let ix = 0; ix < fieldWidth; ix++) {
-        this.context.strokeRect(ix * cellWidth, iy * cellWidth, cellWidth, cellWidth);
+    for (let iy = 0; iy < playFieldConfig.fieldCellHeight; iy++) {
+      for (let ix = 0; ix < playFieldConfig.fieldCellWidth; ix++) {
+        this.context.strokeRect(ix * playFieldConfig.cellWidth, iy * playFieldConfig.cellWidth,
+          playFieldConfig.cellWidth, playFieldConfig.cellWidth);
       }
     }
   }

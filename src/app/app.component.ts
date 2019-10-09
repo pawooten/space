@@ -2,7 +2,7 @@ import { Component, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
 import { AppService } from './services/app.service';
 import { GameService } from './services/game.service';
 
-import { playField } from './config';
+import { playFieldConfig } from './config';
 
 @Component({
   selector: 'app-root',
@@ -35,8 +35,8 @@ export class AppComponent implements AfterViewInit {
   onResize(eventTarget: any) {
     const dpi = window.devicePixelRatio;
     const canvasElement = this.canvas.nativeElement;
-    canvasElement.setAttribute('width', dpi * playField.width);
-    canvasElement.setAttribute('height', dpi * playField.height);
+    canvasElement.setAttribute('width', dpi * playFieldConfig.width);
+    canvasElement.setAttribute('height', dpi * playFieldConfig.height);
     this.gameService.startGameLoop();
   }
 }
