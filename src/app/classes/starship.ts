@@ -1,4 +1,5 @@
 import { Sprite } from './sprite';
+import { GameDirection } from '../enumerations';
 
 export class Starship extends Sprite {
 
@@ -11,6 +12,10 @@ export class Starship extends Sprite {
 
   get Height(): number {
     return 64;
+  }
+
+  get Speed(): number {
+    return 8;
   }
 
   constructor( x: number, y: number, private image: HTMLImageElement ) {
