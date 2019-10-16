@@ -12,6 +12,8 @@ export class GameService {
 
   private starship: Starship;
 
+  public showGrid = false;
+
   context: CanvasRenderingContext2D;
 
   loadAssets(canvasElement: HTMLCanvasElement): Promise<void> {
@@ -39,7 +41,9 @@ export class GameService {
 
   draw() {
     this.context.clearRect(0, 0, playFieldConfig.width, playFieldConfig.height); // clear the entire play field
-    // this.drawGrid();
+    if (this.showGrid) {
+      this.drawGrid();
+    }
     this.starship.draw(this.context);
   }
 

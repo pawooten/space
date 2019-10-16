@@ -1,8 +1,12 @@
-<div>
+<div id="scoreboardDiv">
   <h3>High Score</h3>
   <h3>{{highScore}}</h3>
   <h3>Score</h3>
   <h3>{{currentScore}}</h3>
   <h3>Stage</h3>
   <h3>{{currentStage}}</h3>
+  <div *ngIf="enableDebug" id="debugOptionsDiv">
+    <input type="checkbox" id="showGridCheckbox" [(ngModel)]="showGrid" (change)="onShowGridChanged()"/>
+    <label for="showGridCheckbox">Show Grid</label>
+  </div>
 </div>

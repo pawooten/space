@@ -1,8 +1,12 @@
-div {
+#scoreboardDiv {
   background-color: ghostwhite;
-  opacity: 0.3;
+  opacity: 0.4;
   border-right:2px solid ghostwhite;
   height:100%;
+}
+#debugOptionsDiv {
+  margin: 4px;
+  border: 2px solid dimgray;
 }
 h3 {
   margin:0px;
