@@ -1,22 +1,24 @@
 import { GameDirection } from '../enumerations';
+import { GameObject } from './game-object';
+import { GameDirectionUtilities } from '../utilities';
+export abstract class Sprite extends GameObject {
 
-export abstract class Sprite {
-  get X(): number {
-    return this.x;
-  }
-  get Y(): number {
-    return this.y;
-  }
-
-  abstract get Width(): number;
-  abstract get Height(): number;
   abstract get Speed(): number;
 
-  constructor( protected x: number, protected y: number) {}
+  constructor( x: number, y: number) {
+    super(x, y);
+  }
 
   abstract draw( context: CanvasRenderingContext2D): void;
 
-  move( direction: GameDirection) {
+  move( direction: GameDirection, containerObject: GameObject ) {
+    this.tryMove(direction);
+    if (!this.checkBounds(containerObject)) {
+      this.tryMove(GameDirectionUtilities.toOpposite(direction));
+    }
+  }
+
+  tryMove( direction: GameDirection ) {
     switch (direction) {
       case GameDirection.Left:
         this.x -= this.Speed;
@@ -31,5 +33,12 @@ export abstract class Sprite {
         this.y += this.Speed;
         break;
     }
+  }
+
+  private checkBounds( containerObject: GameObject ): boolean {
+    return  this.Left >= containerObject.Left &&
+            this.Right <= containerObject.Right &&
+            this.Top >= containerObject.Top &&
+            this.Bottom <= containerObject.Bottom;
   }
 }

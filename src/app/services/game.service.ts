@@ -5,12 +5,14 @@ import { Key } from 'ts-keycode-enum';
 import { Starship } from '../classes/starship';
 import { playFieldConfig, starshipConfig } from '../config';
 import { KeyboardEventType, GameDirection } from '../enumerations';
+import { PlayField } from '../classes/playfield';
 
 
 @Injectable()
 export class GameService {
 
   private starship: Starship;
+  private playfield: PlayField;
 
   public showGrid = false;
 
@@ -28,6 +30,8 @@ export class GameService {
         const x = (playFieldConfig.width - starshipConfig.width) / 2;
         const y = playFieldConfig.height - (starshipConfig.height * 3);
         this.starship = new Starship( x, y, starshipImage);
+
+        this.playfield = new PlayField();
         resolve(); };
     });
   }
@@ -52,16 +56,16 @@ export class GameService {
       case KeyboardEventType.KeyDown:
         switch (event.keyCode) {
           case Key.LeftArrow:
-            this.starship.move(GameDirection.Left);
+            this.starship.move(GameDirection.Left, this.playfield);
             break;
           case Key.UpArrow:
-            this.starship.move(GameDirection.Up);
+            this.starship.move(GameDirection.Up, this.playfield);
             break;
           case Key.RightArrow:
-            this.starship.move(GameDirection.Right);
+            this.starship.move(GameDirection.Right, this.playfield);
             break;
           case Key.DownArrow:
-            this.starship.move(GameDirection.Down);
+            this.starship.move(GameDirection.Down, this.playfield);
             break;
           case Key.Space:
             console.log('space bar');
