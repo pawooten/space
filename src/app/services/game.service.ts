@@ -3,23 +3,33 @@ import { Injectable, Inject } from '@angular/core';
 import { Key } from 'ts-keycode-enum';
 
 import { Starship } from '../classes/starship';
-import { playFieldConfig, starshipConfig } from '../config';
+import { playFieldConfig, starshipConfig, asteroidConfig } from '../config';
 import { KeyboardEventType, GameDirection } from '../enumerations';
 import { PlayField } from '../classes/playfield';
+import { Asteroid } from '../classes/asteroid';
 
 
 @Injectable()
 export class GameService {
 
   private starship: Starship;
-  private playfield: PlayField;
+  private playField: PlayField;
+  private asteroid: Asteroid;
 
   public showGrid = false;
 
   context: CanvasRenderingContext2D;
 
-  loadAssets(canvasElement: HTMLCanvasElement): Promise<void> {
+  loadAssets(canvasElement: HTMLCanvasElement): Promise<void[]> {
     this.context = canvasElement.getContext('2d');
+    const promises: Promise<void>[] = [];
+    promises.push(this.loadStarship());
+    promises.push(this.loadPlayField());
+    promises.push(this.loadAsteroid());
+    return Promise.all(promises);
+  }
+
+  loadStarship(): Promise<void> {
     return new Promise((resolve, reject) => {
       const starshipImage = new Image();
       starshipImage.src = starshipConfig.imageSource;
@@ -31,8 +41,31 @@ export class GameService {
         const y = playFieldConfig.height - (starshipConfig.height * 3);
         this.starship = new Starship( x, y, starshipImage);
 
-        this.playfield = new PlayField();
-        resolve(); };
+        resolve();
+      };
+    });
+  }
+
+  loadAsteroid(): Promise<void> {
+    return new Promise((resolve, reject) => {
+      const asteroidImage = new Image();
+      asteroidImage.src = asteroidConfig.imageSource;
+      asteroidImage.width = asteroidConfig.imageWidth;
+      asteroidImage.height = asteroidConfig.imageHeight;
+      asteroidImage.onload = () => {
+        const x = 100;
+        const y = 100;
+        this.asteroid = new Asteroid( x, y, asteroidImage);
+
+        resolve();
+      };
+    });
+  }
+
+  loadPlayField(): Promise<void> {
+    return new Promise((resolve, reject) => {
+      this.playField = new PlayField();
+      resolve();
     });
   }
 
@@ -49,6 +82,7 @@ export class GameService {
       this.drawGrid();
     }
     this.starship.draw(this.context);
+    this.asteroid.draw(this.context);
   }
 
   onKeyboardEvent( event: KeyboardEvent, type: KeyboardEventType): void {
@@ -56,16 +90,16 @@ export class GameService {
       case KeyboardEventType.KeyDown:
         switch (event.keyCode) {
           case Key.LeftArrow:
-            this.starship.move(GameDirection.Left, this.playfield);
+            this.starship.move(GameDirection.Left, this.playField);
             break;
           case Key.UpArrow:
-            this.starship.move(GameDirection.Up, this.playfield);
+            this.starship.move(GameDirection.Up, this.playField);
             break;
           case Key.RightArrow:
-            this.starship.move(GameDirection.Right, this.playfield);
+            this.starship.move(GameDirection.Right, this.playField);
             break;
           case Key.DownArrow:
-            this.starship.move(GameDirection.Down, this.playfield);
+            this.starship.move(GameDirection.Down, this.playField);
             break;
           case Key.Space:
             console.log('space bar');

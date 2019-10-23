@@ -17,3 +17,11 @@ export const starshipConfig = {
   imageWidth: 512,
   imageSource: '../../assets/svg/starship.svg'
 };
+
+export const asteroidConfig = {
+  width: 64,
+  height: 64,
+  imageHeight: 512,
+  imageWidth: 512,
+  imageSource: '../../assets/svg/moon.svg'
+};
