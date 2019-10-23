@@ -4,7 +4,7 @@ import { Key } from 'ts-keycode-enum';
 
 import { Starship } from '../classes/starship';
 import { playFieldConfig, starshipConfig, asteroidConfig } from '../config';
-import { KeyboardEventType, GameDirection } from '../enumerations';
+import { KeyboardEventType, GameDirection, AsteroidSize, SpritePathType } from '../enumerations';
 import { PlayField } from '../classes/playfield';
 import { Asteroid } from '../classes/asteroid';
 
@@ -55,7 +55,7 @@ export class GameService {
       asteroidImage.onload = () => {
         const x = 100;
         const y = 100;
-        this.asteroid = new Asteroid( x, y, asteroidImage);
+        this.asteroid = new Asteroid( SpritePathType.Straight, AsteroidSize.Medium, x, y, asteroidImage);
 
         resolve();
       };
@@ -72,6 +72,7 @@ export class GameService {
   startGameLoop() {
     this.draw();
     window.setInterval( () => {
+      this.asteroid.followPath(this.playField);
       this.draw();
     }, 100);
   }

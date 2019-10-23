@@ -11,11 +11,15 @@ export abstract class Sprite extends GameObject {
 
   abstract draw( context: CanvasRenderingContext2D): void;
 
-  move( direction: GameDirection, containerObject: GameObject ) {
+  move( direction: GameDirection, containerObject: GameObject ): boolean {
     this.tryMove(direction);
     if (!this.checkBounds(containerObject)) {
       this.tryMove(GameDirectionUtilities.toOpposite(direction));
+      // The move was not successful, and must be undone
+      return false;
     }
+    // The move was successful
+    return true;
   }
 
   tryMove( direction: GameDirection ) {

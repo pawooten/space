@@ -9,3 +9,13 @@ export enum GameDirection {
   Right = 'Right',
   Down = 'Down'
 };
+
+export enum AsteroidSize {
+  Small,
+  Medium,
+  Large
+};
+
+export enum SpritePathType {
+  Straight
+};

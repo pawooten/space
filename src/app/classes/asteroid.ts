@@ -1,24 +1,42 @@
-import { Sprite } from './sprite';
+import { PathSprite } from './path-sprite';
+import { AsteroidSize, SpritePathType } from '../enumerations';
 
-export class Asteroid extends Sprite {
+export class Asteroid extends PathSprite {
 
   private readonly sourceX = 0;
   private readonly sourceY = 0;
 
+  private _width: number;
   get Width(): number {
-    return 64;
+    return this._width;
   }
 
+  private _height: number;
   get Height(): number {
-    return 64;
+    return this._height;
   }
 
   get Speed(): number {
     return 3;
   }
 
-  constructor( x: number, y: number, private image: HTMLImageElement ) {
-    super(x, y);
+  constructor( path: SpritePathType, size: AsteroidSize, x: number, y: number, private image: HTMLImageElement ) {
+    super(path, x, y);
+
+    switch (size) {
+      case AsteroidSize.Small:
+        this._width = 32;
+        this._height = 32;
+        break;
+      case AsteroidSize.Medium:
+        this._width = 64;
+        this._height = 64;
+        break;
+      case AsteroidSize.Large:
+        this._width = 96;
+        this._height = 96;
+        break;
+    }
   }
 
   draw( context: CanvasRenderingContext2D ): void {
