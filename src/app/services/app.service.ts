@@ -1,26 +1,27 @@
 import { Injectable, EventEmitter } from '@angular/core';
 import { GameService } from './game.service';
+import { ImageLoaderService } from './image-loader.service';
 
-import { Key } from 'ts-keycode-enum';
 import { KeyboardEventType } from '../enumerations';
 
 @Injectable()
 export class AppService {
 
-  isImageLoaded: EventEmitter<number> = new EventEmitter();
+  initialized: EventEmitter<number> = new EventEmitter();
 
-  constructor(private gameService: GameService ) {}
+  constructor(private gameService: GameService, private imageLoaderService: ImageLoaderService ) {}
 
   createPlayGround( canvasElement: HTMLCanvasElement): void {
-    this.gameService.loadAssets(canvasElement).then( (image) => {
+    this.imageLoaderService.loadAssets().then(() => {
+      this.gameService.initialize(canvasElement);
       setTimeout( () => {
-        this.isImageLoaded.emit();
+        this.initialized.emit();
       }, 1000);
-    });
+      });
   }
 
   getImageLoadEmitter() {
-    return this.isImageLoaded;
+    return this.initialized;
   }
 
   onKeyboardEvent( event: KeyboardEvent, type: KeyboardEventType): void {

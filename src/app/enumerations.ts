@@ -10,12 +10,18 @@ export enum GameDirection {
   Down = 'Down'
 };
 
+export enum ObjectType {
+  SmallAsteroid,
+  MediumAsteroid,
+  LargeAsteroid
+};
+
 export enum AsteroidSize {
   Small,
   Medium,
   Large
 };
 
-export enum SpritePathType {
+export enum ObjectPathType {
   Straight
 };

@@ -1,5 +1,5 @@
 import { PathSprite } from './path-sprite';
-import { AsteroidSize, SpritePathType } from '../enumerations';
+import { AsteroidSize, ObjectPathType } from '../enumerations';
 
 export class Asteroid extends PathSprite {
 
@@ -20,7 +20,7 @@ export class Asteroid extends PathSprite {
     return 3;
   }
 
-  constructor( path: SpritePathType, size: AsteroidSize, x: number, y: number, private image: HTMLImageElement ) {
+  constructor( path: ObjectPathType, size: AsteroidSize, x: number, y: number, private image: HTMLImageElement ) {
     super(path, x, y);
 
     switch (size) {

@@ -9,6 +9,7 @@ import { ScoreboardComponent } from './components/scoreboard/scoreboard.componen
 import { AppService } from './services/app.service';
 import { GameService } from './services/game.service';
 import { ScoreService } from './services/score.service';
+import { ImageLoaderService } from './services/image-loader.service';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,7 @@ import { ScoreService } from './services/score.service';
     FormsModule,
     HttpModule
   ],
-  providers: [ AppService, GameService, ScoreService ],
+  providers: [ AppService, GameService, ScoreService, ImageLoaderService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

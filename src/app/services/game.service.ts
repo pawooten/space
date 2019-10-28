@@ -2,9 +2,11 @@ import { Injectable, Inject } from '@angular/core';
 
 import { Key } from 'ts-keycode-enum';
 
-import { Starship } from '../classes/starship';
 import { playFieldConfig, starshipConfig, asteroidConfig } from '../config';
-import { KeyboardEventType, GameDirection, AsteroidSize, SpritePathType } from '../enumerations';
+import { KeyboardEventType, GameDirection, AsteroidSize, ObjectPathType } from '../enumerations';
+import { ImageLoaderService } from './image-loader.service';
+
+import { Starship } from '../classes/starship';
 import { PlayField } from '../classes/playfield';
 import { Asteroid } from '../classes/asteroid';
 
@@ -20,55 +22,26 @@ export class GameService {
 
   context: CanvasRenderingContext2D;
 
-  loadAssets(canvasElement: HTMLCanvasElement): Promise<void[]> {
+  constructor( private imageLoaderService: ImageLoaderService) {}
+
+  initialize(canvasElement: HTMLCanvasElement): void {
     this.context = canvasElement.getContext('2d');
-    const promises: Promise<void>[] = [];
-    promises.push(this.loadStarship());
-    promises.push(this.loadPlayField());
-    promises.push(this.loadAsteroid());
-    return Promise.all(promises);
+    this.initializeStarship();
+    this.playField = new PlayField();
+    this.initializeAsteroid();
   }
 
-  loadStarship(): Promise<void> {
-    return new Promise((resolve, reject) => {
-      const starshipImage = new Image();
-      starshipImage.src = starshipConfig.imageSource;
-      starshipImage.width = starshipConfig.imageWidth;
-      starshipImage.height = starshipConfig.imageHeight;
-      starshipImage.onload = () => {
-        // Center the starship in the middle of the play field, two ship lengths above the bottom
-        const x = (playFieldConfig.width - starshipConfig.width) / 2;
-        const y = playFieldConfig.height - (starshipConfig.height * 3);
-        this.starship = new Starship( x, y, starshipImage);
-
-        resolve();
-      };
-    });
+  initializeStarship(): void {
+      const x = (playFieldConfig.width - starshipConfig.width) / 2;
+      const y = playFieldConfig.height - (starshipConfig.height * 3);
+      this.starship = new Starship( x, y, this.imageLoaderService.Starship);
   }
 
-  loadAsteroid(): Promise<void> {
-    return new Promise((resolve, reject) => {
-      const asteroidImage = new Image();
-      asteroidImage.src = asteroidConfig.imageSource;
-      asteroidImage.width = asteroidConfig.imageWidth;
-      asteroidImage.height = asteroidConfig.imageHeight;
-      asteroidImage.onload = () => {
-        const x = 100;
-        const y = 100;
-        this.asteroid = new Asteroid( SpritePathType.Straight, AsteroidSize.Medium, x, y, asteroidImage);
-
-        resolve();
-      };
-    });
+  initializeAsteroid(): void {
+    const x = 100;
+    const y = 100;
+    this.asteroid = new Asteroid( ObjectPathType.Straight, AsteroidSize.Medium, x, y, this.imageLoaderService.Asteroid);
   }
-
-  loadPlayField(): Promise<void> {
-    return new Promise((resolve, reject) => {
-      this.playField = new PlayField();
-      resolve();
-    });
-  }
-
   startGameLoop() {
     this.draw();
     window.setInterval( () => {
