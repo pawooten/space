@@ -3,12 +3,12 @@ import { Injectable, Inject } from '@angular/core';
 import { Key } from 'ts-keycode-enum';
 
 import { playFieldConfig, starshipConfig, asteroidConfig } from '../config';
-import { KeyboardEventType, GameDirection, AsteroidSize, ObjectPathType } from '../enumerations';
+import { KeyboardEventType, GameDirection, ObjectPathType, ObjectType } from '../enumerations';
 import { ImageLoaderService } from './image-loader.service';
 
 import { Starship } from '../classes/starship';
 import { PlayField } from '../classes/playfield';
-import { Asteroid } from '../classes/asteroid';
+import { Wave } from '../classes/wave';
 
 
 @Injectable()
@@ -16,7 +16,8 @@ export class GameService {
 
   private starship: Starship;
   private playField: PlayField;
-  private asteroid: Asteroid;
+
+  private wave: Wave;
 
   public showGrid = false;
 
@@ -28,7 +29,13 @@ export class GameService {
     this.context = canvasElement.getContext('2d');
     this.initializeStarship();
     this.playField = new PlayField();
-    this.initializeAsteroid();
+    this.wave = new Wave( this.imageLoaderService, this.playField,
+      [ { Tick: 10, Type: ObjectType.SmallAsteroid, Path: ObjectPathType.Straight, X: 40, Y: 100 },
+        { Tick: 10, Type: ObjectType.MediumAsteroid, Path: ObjectPathType.Straight, X: 140, Y: 100 },
+        { Tick: 10, Type: ObjectType.LargeAsteroid, Path: ObjectPathType.Straight, X: 240, Y: 100 },
+        { Tick: 100, Type: ObjectType.SmallAsteroid, Path: ObjectPathType.Straight, X: 40, Y: 100 },
+        { Tick: 100, Type: ObjectType.MediumAsteroid, Path: ObjectPathType.Straight, X: 140, Y: 100 },
+        { Tick: 100, Type: ObjectType.LargeAsteroid, Path: ObjectPathType.Straight, X: 240, Y: 100 }]);
   }
 
   initializeStarship(): void {
@@ -37,15 +44,10 @@ export class GameService {
       this.starship = new Starship( x, y, this.imageLoaderService.Starship);
   }
 
-  initializeAsteroid(): void {
-    const x = 100;
-    const y = 100;
-    this.asteroid = new Asteroid( ObjectPathType.Straight, AsteroidSize.Medium, x, y, this.imageLoaderService.Asteroid);
-  }
   startGameLoop() {
     this.draw();
     window.setInterval( () => {
-      this.asteroid.followPath(this.playField);
+      this.wave.Tick();
       this.draw();
     }, 100);
   }
@@ -56,7 +58,7 @@ export class GameService {
       this.drawGrid();
     }
     this.starship.draw(this.context);
-    this.asteroid.draw(this.context);
+    this.wave.Draw(this.context);
   }
 
   onKeyboardEvent( event: KeyboardEvent, type: KeyboardEventType): void {

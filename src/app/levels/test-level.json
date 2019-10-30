@@ -1,0 +1,8 @@
+[
+  { "Tick": 10, "Type": "SmallAsteroid", "Path": "Straight", "X": 40, "Y": 100 },
+  { "Tick": 10, "Type": "MediumAsteroid", "Path": "Straight", "X": 140, "Y": 100 },
+  { "Tick": 10, "Type": "LargeAsteroid", "Path": "Straight", "X": 240, "Y": 100 },
+  { "Tick": 100, "Type": "SmallAsteroid", "Path": "Straight", "X": 40, "Y": 100 },
+  { "Tick": 100, "Type": "MediumAsteroid", "Path": "Straight", "X": 140, "Y": 100 },
+  { "Tick": 100, "Type": "LargeAsteroid", "Path": "Straight", "X": 240, "Y": 100 }
+]
