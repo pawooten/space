@@ -12,7 +12,7 @@ import { KeyboardEventType } from './enumerations';
 })
 export class AppComponent implements AfterViewInit {
 
-  @ViewChild('canvas') public canvas: ElementRef;
+  @ViewChild('canvas', {static: true}) public canvas: ElementRef;
   subscription: any;
 
   private _isLoaded = false;
