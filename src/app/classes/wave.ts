@@ -34,7 +34,7 @@ export class Wave {
         this.activeSprites.push(this.createSprite(object));
       }
     }
-    this.activeSprites.forEach( sprite => sprite.followPath(this.containerObject));
+    this.activeSprites.forEach( sprite => sprite.followPath(this.containerObject, this.currentTick));
   }
 
   createSprite( waveObject: WaveObject): PathSprite {
