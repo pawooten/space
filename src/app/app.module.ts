@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-// import { HttpClientModule} from '@angular/common/http';
+import { HttpClientModule} from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { ScoreboardComponent } from './components/scoreboard/scoreboard.component';
@@ -19,7 +19,7 @@ import { DataLoaderService } from './services/data-loader.service';
   imports: [
     BrowserModule,
     FormsModule,
-    // HttpClientModule
+    HttpClientModule
   ],
   providers: [ AppService, GameService, ScoreService, ImageLoaderService, DataLoaderService ],
   bootstrap: [AppComponent]

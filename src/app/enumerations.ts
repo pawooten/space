@@ -11,9 +11,9 @@ export enum GameDirection {
 };
 
 export enum ObjectType {
-  SmallAsteroid,
-  MediumAsteroid,
-  LargeAsteroid
+  SmallAsteroid = 'SmallAsteroid',
+  MediumAsteroid = 'MediumAsteroid',
+  LargeAsteroid = 'LargeAsteroid'
 };
 
 export enum AsteroidSize {
@@ -23,5 +23,5 @@ export enum AsteroidSize {
 };
 
 export enum ObjectPathType {
-  Straight
+  Straight = 'Straight'
 };

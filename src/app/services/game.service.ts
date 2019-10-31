@@ -5,10 +5,11 @@ import { Key } from 'ts-keycode-enum';
 import { playFieldConfig, starshipConfig, asteroidConfig } from '../config';
 import { KeyboardEventType, GameDirection, ObjectPathType, ObjectType } from '../enumerations';
 import { ImageLoaderService } from './image-loader.service';
+import { DataLoaderService } from './data-loader.service';
 
 import { Starship } from '../classes/starship';
 import { PlayField } from '../classes/playfield';
-import { Wave } from '../classes/wave';
+import { Wave, WaveObject } from '../classes/wave';
 
 
 @Injectable()
@@ -23,19 +24,15 @@ export class GameService {
 
   context: CanvasRenderingContext2D;
 
-  constructor( private imageLoaderService: ImageLoaderService) {}
+  constructor( private imageLoaderService: ImageLoaderService, private dataLoaderService: DataLoaderService ) {}
 
   initialize(canvasElement: HTMLCanvasElement): void {
     this.context = canvasElement.getContext('2d');
-    this.initializeStarship();
-    this.playField = new PlayField();
-    this.wave = new Wave( this.imageLoaderService, this.playField,
-      [ { Tick: 10, Type: ObjectType.SmallAsteroid, Path: ObjectPathType.Straight, X: 40, Y: 100 },
-        { Tick: 10, Type: ObjectType.MediumAsteroid, Path: ObjectPathType.Straight, X: 140, Y: 100 },
-        { Tick: 10, Type: ObjectType.LargeAsteroid, Path: ObjectPathType.Straight, X: 240, Y: 100 },
-        { Tick: 100, Type: ObjectType.SmallAsteroid, Path: ObjectPathType.Straight, X: 40, Y: 100 },
-        { Tick: 100, Type: ObjectType.MediumAsteroid, Path: ObjectPathType.Straight, X: 140, Y: 100 },
-        { Tick: 100, Type: ObjectType.LargeAsteroid, Path: ObjectPathType.Straight, X: 240, Y: 100 }]);
+    this.dataLoaderService.getTestLevel().subscribe((waveObjects: Array<WaveObject>) => {
+      this.initializeStarship();
+      this.playField = new PlayField();
+      this.wave = new Wave( this.imageLoaderService, this.playField, waveObjects);
+      });
   }
 
   initializeStarship(): void {
