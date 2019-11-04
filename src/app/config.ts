@@ -19,9 +19,15 @@ export const starshipConfig = {
 };
 
 export const asteroidConfig = {
-  width: 64,
-  height: 64,
   imageHeight: 512,
   imageWidth: 512,
   imageSource: '../../assets/svg/moon.svg'
 };
+
+export const torpedoConfig = {
+  imageHeight: 1,
+  imageWidth: 25,
+  imageSource: '../../assets/svg/torpedo.svg'
+};
+
+

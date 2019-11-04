@@ -22,7 +22,7 @@ export class Starship extends Sprite {
     super(x, y);
   }
 
-  draw( context: CanvasRenderingContext2D) {
+  Draw( context: CanvasRenderingContext2D) {
     const spriteWidth = 512;
     const spriteHeight = 512;
     context.drawImage(this.image, this.sourceX, this.sourceY, spriteWidth, spriteHeight, this.X, this.Y, this.Width, this.Height);

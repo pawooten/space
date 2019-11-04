@@ -10,13 +10,15 @@ import { DataLoaderService } from './data-loader.service';
 import { Starship } from '../classes/starship';
 import { PlayField } from '../classes/playfield';
 import { Wave, WaveObject } from '../classes/wave';
-
+import { Torpedo } from '../classes/torpedo';
 
 @Injectable()
 export class GameService {
 
   private starship: Starship;
   private playField: PlayField;
+
+  private torpedo: Torpedo;
 
   private wave: Wave;
 
@@ -32,6 +34,8 @@ export class GameService {
       this.initializeStarship();
       this.playField = new PlayField();
       this.wave = new Wave( this.imageLoaderService, this.playField, waveObjects);
+
+      this.torpedo = new Torpedo(40, 40, this.imageLoaderService.Torpedo);
       });
   }
 
@@ -54,8 +58,9 @@ export class GameService {
     if (this.showGrid) {
       this.drawGrid();
     }
-    this.starship.draw(this.context);
+    this.starship.Draw(this.context);
     this.wave.Draw(this.context);
+    this.torpedo.Draw(this.context);
   }
 
   onKeyboardEvent( event: KeyboardEvent, type: KeyboardEventType): void {

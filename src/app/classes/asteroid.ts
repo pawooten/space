@@ -39,10 +39,9 @@ export class Asteroid extends PathSprite {
     }
   }
 
-  draw( context: CanvasRenderingContext2D ): void {
+  Draw( context: CanvasRenderingContext2D ): void {
     const spriteWidth = 640;
     const spriteHeight = 640;
     context.drawImage(this.image, this.sourceX, this.sourceY, spriteWidth, spriteHeight, this.X, this.Y, this.Width, this.Height);
-
   }
 }

@@ -9,7 +9,7 @@ export abstract class Sprite extends GameObject {
     super(x, y);
   }
 
-  abstract draw( context: CanvasRenderingContext2D): void;
+  abstract Draw( context: CanvasRenderingContext2D): void;
 
   move( direction: GameDirection, containerObject: GameObject ): boolean {
     this.tryMove(direction);

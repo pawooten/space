@@ -16,11 +16,17 @@ export abstract class PathSprite extends Sprite {
 
   followPath(container: GameObject, tick: number): void {
     switch ( this.path ) {
-      case ObjectPathType.Straight:
+      case ObjectPathType.StraightDown:
         if (!this.move(GameDirection.Down, container)) {
           // Following the path has resulted in a move which failed. Interpret this as reaching the end of the path
           this.pathEndReached.emit(null);
         }
+        break;
+      case ObjectPathType.StraightUp:
+          if (!this.move(GameDirection.Up, container)) {
+            // Following the path has resulted in a move which failed. Interpret this as reaching the end of the path
+            this.pathEndReached.emit(null);
+          }
         break;
       case ObjectPathType.ZigZag:
         const remainder = tick % this.tickModulus;

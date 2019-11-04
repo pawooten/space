@@ -53,6 +53,6 @@ export class Wave {
   }
 
   Draw(context: CanvasRenderingContext2D): void {
-    this.activeSprites.forEach(sprite => sprite.draw(context));
+    this.activeSprites.forEach(sprite => sprite.Draw(context));
   }
 }

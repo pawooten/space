@@ -23,6 +23,7 @@ export enum AsteroidSize {
 };
 
 export enum ObjectPathType {
-  Straight = 'Straight',
+  StraightDown = 'StraightDown',
+  StraightUp = 'StraightUp',
   ZigZag = 'ZigZag'
 };
